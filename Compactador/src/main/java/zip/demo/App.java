@@ -32,11 +32,16 @@ public class App {
             }
             if (file.isFile()) {
                 ziparFile(file, dirInterno, zipDestino);
+                file.deleteOnExit();
             } else {
                 dirInterno = file.getName();
                 File[] files = file.listFiles();
                 for (int i = 0; i < files.length; i++) {
+                	if (files[i].getName().equalsIgnoreCase("arquivo.zip")) {
+                		continue;
+                	}
                     ziparFile(files[i], dirInterno, zipDestino);
+                    files[i].deleteOnExit();
                 }
             }
         } catch (IOException ex) {
